@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 `).join('')}</p>
                 
                 <img src="assets/maps/${game.mapId}.png" class="map-picture">
-                <a href="game.html?gameId=${game.id}" class="game-date">${formattedDate}</a>
+                <a href="game?gameId=${game.id}" class="game-date">${formattedDate}</a>
             `;
 
 

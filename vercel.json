@@ -16,12 +16,20 @@
       "dest": "/vercel/$1.js"
     },
     {
-      "src": "/(.*).(png|gif|css)",
+      "src": "/index",
+      "dest": "/"
+    },
+    {
+      "src": "/(.*).(png|gif|css|svg)",
       "dest": "/public/$1.$2"
     },
     {
       "src": "/(.*).js",
       "dest": "/public/$1.js"
+    },
+    {
+      "src": "/",
+      "dest": "/public/index.html"
     },
     {
       "src": "/(.*)",
