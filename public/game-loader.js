@@ -29,10 +29,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             const getKDR = (kills, deaths) => deaths > 0 ? (kills / deaths).toFixed(2) : kills;
 
             section.innerHTML = `
-                <h2>${getEmoji(game.winEmoji)} ${getEmoji("link")} #${game.id} - ${getEmoji("clock")} ${game.time} - ${getEmoji("photo")} ${game.map}</h2>
+                <h2>${getEmoji(game.winEmoji)} ${getEmoji("link")} #${game.id} – ${getEmoji("clock")} ${game.time} – ${getEmoji("photo")} ${game.map}</h2>
                 <p>Оставшееся ХП машины: <strong>${game.machineHp}</strong> ❤</p>
                 
-                <p>- <strong>Победители</strong> ${game.winners.map(winner => `
+                <p>– <strong>Победители</strong> ${game.winners.map(winner => `
                     <div class="player">
                         <img src="${winner.skinUrl}" alt="${winner.name}" class="player-avatar"/>
                         <span class="player-name" style="color: ${winnerColor};">${winner.name}</span>
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     </div>
                 `).join('')}</p>
                 
-                <p>- <strong>Проигравшие</strong> ${game.losers.map(loser => `
+                <p>– <strong>Проигравшие</strong> ${game.losers.map(loser => `
                     <div class="player">
                         <img src="${loser.skinUrl}" alt="${loser.name}" class="player-avatar"/>
                         <span class="player-name" style="color: ${loserColor};">${loser.name}</span>
