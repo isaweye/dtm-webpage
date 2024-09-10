@@ -16,8 +16,16 @@
       "dest": "/vercel/$1.js"
     },
     {
+      "src": "/(.*).png",
+      "dest": "/public/$1.png"
+    },
+    {
+      "src": "/(.*).gif",
+      "dest": "/public/$1.gif"
+    },
+    {
       "src": "/(.*)",
-      "dest": "/public/$1"
+      "dest": "/public/$1.html"
     }
   ]
 }

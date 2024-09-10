@@ -7,7 +7,7 @@
 
 body {
     margin: 0;
-    font-family: 'Minecraft', sans-serif;
+    font-family: 'Roboto', sans-serif;
     line-height: 1.6;
     display: flex;
     flex-direction: column;
@@ -201,8 +201,11 @@ img.emoji {
     border-radius: 2%;
     width: 100%;
     height: auto;
+    object-fit: cover;
     
-    display: inline-block; /* Зберігає ширину відповідно до вмісту */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 10px;
 }
 
@@ -216,8 +219,9 @@ img.emoji {
 }
 
 .player-name {
+    font-family: 'Minecraft', sans-serif;
     color: white;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     transition: transform 0.1s ease;
 }
 
@@ -226,15 +230,17 @@ img.emoji {
 }
 
 .player-class {
+    font-family: 'Minecraft', sans-serif;
     font-style: italic;
     margin-left: 10px;
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: #777;
 }
 
 .player-stats {
+    font-family: 'Minecraft', sans-serif;
     margin-left: 10px;
-    font-size: 0.9em;
+    font-size: 1em;
     color: #bfbdbd;
 }
 
@@ -419,7 +425,6 @@ main {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
-    box-sizing: border-box;
 }
 
 .section:hover {
@@ -439,7 +444,7 @@ main {
     color: #e0e0e0;
     border-bottom: 2px solid #b5b3b3;
     padding-bottom: 8px;
-    font-family: 'Minecraft', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     transition: color 0.3s ease;
 }
 
@@ -451,7 +456,7 @@ main {
     font-size: 1rem;
     line-height: 1.6;
     color: #dcdcdc;
-    font-family: 'Minecraft', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 h1 .dash {
@@ -627,7 +632,7 @@ h1 .hdr {
 
     .player-name {
         color: white;
-        font-size: 1.2rem;
+        font-size: 1rem;
         transition: transform 0.1s ease;
     }
 
@@ -644,7 +649,7 @@ h1 .hdr {
 
     .player-stats {
         margin-left: 10px;
-        font-size: 1.2em;
+        font-size: 0.8em;
         color: #bfbdbd;
     }
 
@@ -713,6 +718,37 @@ h1 .hdr {
     header h1 {
         font-size: 1rem;
     }
+
+    .player-avatar {
+        width: 20px;
+        height: 20px;
+        border-radius: 10%;
+        margin-right: 10px;
+    }
+
+    .player-name {
+        color: white;
+        font-size: 0.8rem;
+        transition: transform 0.1s ease;
+    }
+
+    .player-name:hover {
+        transform: scale(1.025);
+    }
+
+    .player-class {
+        font-style: italic;
+        margin-left: 10px;
+        font-size: 0.6rem;
+        color: #777;
+    }
+
+    .player-stats {
+        margin-left: 10px;
+        font-size: 0.6em;
+        color: #bfbdbd;
+    }
+
 
     .server-status {
         font-size: 0.7rem;
