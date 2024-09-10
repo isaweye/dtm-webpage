@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DTM – Игра</title>
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="https://unpkg.com/@primer/css@^20.0.0/dist/primer.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="background"></div>
+    <header>
+        <div class="logo-container">
+            <img src="assets/logo.png" alt="Logo">
+            <h1>
+                DEFEND THE MACHINE <span class="dash">–</span> <span class="hdr">Игра</span>
+            </h1>
+        </div>
+        <div class="header-buttons">
+            <a class="icon-btn" href="index.html">
+                <img src="animation/7.png" alt="Icon" class="icon-image">
+                <span class="btn-text">Главная</span>
+            </a>
+            <a class="icon-btn" href="info.html">
+                <img src="animation/9.png" alt="Icon" class="icon-image">
+                <span class="btn-text">Архив игр</span>
+            </a>
+            <a class="icon-btn" href="https://discord.gg/CyCF4yDvu5">
+                <img src="assets/discord.svg" alt="Icon" class="icon-image">
+            </a>
+            <a class="icon-btn" href="https://www.youtube.com/@dtmisaweye">
+                <img src="assets/youtube.svg" alt="Icon" class="icon-image">
+            </a>
+        </div>
+        <button class="drawer-button" onclick="toggleDrawer()">☰</button>
+    </header>
+
+    <div id="drawer" class="drawer">
+        <button class="drawer-close" onclick="toggleDrawer()">×</button>
+        <a class="icon-btn" href="index.html">
+            <img src="animation/7.png" alt="Icon" class="icon-image">
+            <span class="btn-text">Главная</span>
+        </a>
+        <a class="icon-btn" href="info.html">
+            <img src="animation/9.png" alt="Icon" class="icon-image">
+            <span class="btn-text">Архив игр</span>
+        </a>
+        <a class="icon-btn" href="https://discord.gg/CyCF4yDvu5">
+            <img src="assets/discord.svg" alt="Icon" class="icon-image">
+        </a>
+        <a class="icon-btn" href="https://www.youtube.com/@dtmisaweye">
+            <img src="assets/youtube.svg" alt="Icon" class="icon-image">
+        </a>
+    </div>
+
+    <main>
+        <div id="game-details" class="section">
+            <h2>ПОДРОБНОСТИ ИГРЫ</h2>
+        </div>
+    </main>
+
+    <footer class="footer">
+        Made with ❤️ by <a href="#">greenMachine1124</a> (a.k.a. <a href="#">isaweye</a>)
+    </footer>
+
+    <script>
+        function toggleDrawer() {
+            const drawer = document.getElementById('drawer');
+            drawer.classList.toggle('open');
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const gameId = urlParams.get('gameId');
+                const apiBaseUrl = `/api/fetchData?gameId=${gameId}`;
+
+                const response = await fetch(apiBaseUrl);
+                const game = await response.json();
+                const gameDetails = document.getElementById('game-details');
+
+                const date = new Date(parseInt(gameId) * 1000);
+                const formattedDate = date.toLocaleDateString('ru-RU') + ' ' + date.toLocaleTimeString('ru-RU');
+
+                const winnerColor = game.winEmoji === 'blue' ? '#2d8feb' : '#eb2d2d';
+                const loserColor = game.winEmoji === 'blue' ? '#eb2d2d' : '#2d8feb';
+                const getKDR = (kills, deaths) => deaths > 0 ? (kills / deaths).toFixed(2) : kills;
+
+                gameDetails.innerHTML = `
+                    <h2>${getEmoji(game.winEmoji)} ${getEmoji("link")} #${gameId} – ${getEmoji("clock")} ${game.time} – ${getEmoji("photo")} ${game.map}</h2>
+                    <p>Оставшееся ХП машины: <strong>${game.machineHp}</strong> ❤</p>
+                    
+                    <p>– <strong>Победители</strong> ${game.winners.map(winner => `
+                        <div class="player">
+                            <img src="${winner.skinUrl}" alt="${winner.name}" class="player-avatar"/>
+                            <span class="player-name" style="color: ${winnerColor};">${winner.name}</span>
+                            <span class="player-class">${winner.classId}</span>
+                            <span class="player-stats">${getEmoji("kills", 14)} ${winner.kills} ${getEmoji("deaths", 14)} ${winner.deaths} | ${getKDR(winner.kills, winner.deaths)}</span>
+                        </div>
+                    `).join('')}</p>
+                    
+                    <p>– <strong>Проигравшие</strong> ${game.losers.map(loser => `
+                        <div class="player">
+                            <img src="${loser.skinUrl}" alt="${loser.name}" class="player-avatar"/>
+                            <span class="player-name" style="color: ${loserColor};">${loser.name}</span>
+                            <span class="player-class">${loser.classId}</span>
+                            <span class="player-stats">${getEmoji("kills", 14)} ${loser.kills} ${getEmoji("deaths", 14)} ${loser.deaths} | ${getKDR(loser.kills, loser.deaths)}</span>
+                        </div>
+                    `).join('')}</p>
+                    
+                    <a href="#" class="game-date">${formattedDate}</a>
+                `;
+            } catch (error) {
+                console.error('Ошибка при загрузке данных об игре:', error);
+            }
+
+            function getEmoji(text, size = 20) {
+                return `<img class="emoji" draggable="false" src="assets/twemoji/${text}.svg" style="width: ${size}px; height: ${size}px;">`;
+            }
+        });
+    </script>
+    <script src="script.js"></script> 
+    <script src="anim.js"></script> 
+
+</body>
+</html>
