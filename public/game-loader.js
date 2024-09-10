@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             section.innerHTML = `
                 <h2>${getEmoji(game.winEmoji)} ${getEmoji("link")} #${game.id} – ${getEmoji("clock")} ${game.time} – ${getEmoji("photo")} ${game.map}</h2>
+                <img src="assets/maps/${game.map}.png" class="map-picture">
                 <p>Оставшееся ХП машины: <strong>${game.machineHp}</strong> ❤</p>
                 
                 <p>– <strong>Победители</strong> ${game.winners.map(winner => `

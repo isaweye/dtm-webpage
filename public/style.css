@@ -83,7 +83,7 @@ header img:hover {
     transition: transform 0.1s ease;
 }
 
-.section img:not(.emoji):not(.player-avatar):hover {
+.section img:not(.emoji):not(.player-avatar):not(.map-picture):hover {
     transform: scale(1.015);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
     cursor: pointer;
@@ -188,6 +188,20 @@ img.emoji {
     align-items: center;
     margin: 5px 0;
 }
+
+.map-picture {
+    border-radius: 2%;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+}
+
+
 
 .player-avatar {
     width: 40px;
