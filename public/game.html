@@ -114,6 +114,10 @@
                     <a href="#" class="game-date">${formattedDate}</a>
                 `;
             } catch (error) {
+                gameDetails.innerHTML = `
+                <h2>Не удалось загрузить данных об игре</h2>
+                <p>Возможно, указанной игры не существует!</p>
+                `
                 console.error('Ошибка при загрузке данных об игре:', error);
             }
 
