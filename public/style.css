@@ -719,6 +719,37 @@ h1 .hdr {
         font-size: 1rem;
     }
 
+    .player-avatar {
+        width: 20px;
+        height: 20px;
+        border-radius: 10%;
+        margin-right: 10px;
+    }
+
+    .player-name {
+        color: white;
+        font-size: 0.8rem;
+        transition: transform 0.1s ease;
+    }
+
+    .player-name:hover {
+        transform: scale(1.025);
+    }
+
+    .player-class {
+        font-style: italic;
+        margin-left: 10px;
+        font-size: 0.6rem;
+        color: #777;
+    }
+
+    .player-stats {
+        margin-left: 10px;
+        font-size: 0.6em;
+        color: #bfbdbd;
+    }
+
+
     .server-status {
         font-size: 0.7rem;
         text-align: center;
