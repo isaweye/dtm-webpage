@@ -57,12 +57,12 @@
 
     <main>
         <div id="game-details" class="section">
-            <h2>ПОДРОБНОСТИ ИГРЫ</h2>
+            <h2>Загрузка...</h2>
         </div>
     </main>
 
     <footer class="footer">
-        Made with ❤️ by <a href="#">greenMachine1124</a> (a.k.a. <a href="#">isaweye</a>)
+        made with ❤️ by <a href="#">greenMachine1124</a> (a.k.a. <a href="#">isaweye</a>)
     </footer>
 
     <script>
@@ -90,7 +90,6 @@
 
                 gameDetails.innerHTML = `
                     <h2>${getEmoji(game.winEmoji)} ${getEmoji("link")} #${gameId} – ${getEmoji("clock")} ${game.time} – ${getEmoji("photo")} ${game.map}</h2>
-                    <img src="assets/maps/${game.mapId}.png" class="map-picture">
                     <p>Оставшееся ХП машины: <strong>${game.machineHp}</strong> ❤</p>
                     
                     <p>– <strong>Победители</strong> ${game.winners.map(winner => `
@@ -111,6 +110,7 @@
                         </div>
                     `).join('')}</p>
                     
+                    <img src="assets/maps/${game.mapId}.png" class="map-picture">
                     <a href="#" class="game-date">${formattedDate}</a>
                 `;
             } catch (error) {
