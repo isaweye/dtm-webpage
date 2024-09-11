@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         const apiGet = '/api/fetchData';
+        const startTime = performance.now();
+
         const response = await fetch(apiGet);
         const data = await response.json();
 
@@ -13,6 +15,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                 date: new Date(parseInt(gameId) * 1000)
             };
         });
+
+        const endTime = performance.now();
+        const loadTime = (endTime - startTime).toFixed(2);
+
+        const s = document.getElementById('section1');
+        s.innerHTML = `
+            <h2>Последние игры (${games.length})</h2>
+            <p>Загрузка заняла ${loadTime} мс. Все объекты загружены.</p>
+        `;
 
         games.sort((a, b) => b.date - a.date);
 
