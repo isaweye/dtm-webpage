@@ -33,7 +33,7 @@
     {
       "status": 404,
       "src": "/.*",
-      "dest": "/public/404.html"
+      "dest": "/404.html"
     }
   ]
 }
