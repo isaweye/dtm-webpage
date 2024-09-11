@@ -12,6 +12,9 @@
   ],
   "routes": [
     {
+      "handle": "filesystem"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "/vercel/$1.js"
     },
@@ -35,9 +38,10 @@
       "src": "/(.*)",
       "dest": "/public/$1.html"
     },
-    { "src": "/(.*)",
+    {
       "status": 404,
-      "dest": "public/404.html"
+      "src": "/(.*)",
+      "dest": "/public/404.html"
     }
   ]
 }
