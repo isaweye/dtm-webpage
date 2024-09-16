@@ -133,4 +133,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     function getEmoji(text, size = 20) {
         return `<img class="emoji" draggable="false" src="assets/twemoji/${text}.svg" style="width: ${size}px; height: ${size}px;">`;
     }
+
+    function checkVisibility() {
+        const windowHeight = window.innerHeight;
+        const scrollY = window.scrollY;
+
+        sections.forEach(section => {
+            const sectionTop = section.getBoundingClientRect().top + scrollY;
+            const sectionHeight = section.offsetHeight;
+
+            if (scrollY + windowHeight > sectionTop + sectionHeight / 4) {
+                section.classList.add('visible');
+            } else {
+                section.classList.remove('visible');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', checkVisibility);
+    checkVisibility();
 });
