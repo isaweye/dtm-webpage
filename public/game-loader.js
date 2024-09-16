@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const timeSort = document.getElementById('timeSort').value;
 
             let filteredGames = games;
+            filteredGames.sort((a, b) => b.date - a.date);
 
             if (selectedMap !== 'all') {
                 filteredGames = filteredGames.filter(game => game.map === selectedMap);
@@ -53,9 +54,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             if (timeSort === 'asc') {
-                filteredGames.sort((a, b) => a.date - b.date);
+                filteredGames.sort((a, b) => timeToSeconds(a.time) - timeToSeconds(b.time));
             } else if (timeSort === 'desc') {
-                filteredGames.sort((a, b) => b.date - a.date);
+                filteredGames.sort((a, b) => timeToSeconds(b.time) - timeToSeconds(a.time));
             }
 
             g.innerHTML = '';
@@ -67,6 +68,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function createSortOptions(maps) {
         sortSection.innerHTML = `
+            <h2>Сортировка</h2>
             <label for="mapFilter">Выберите карту:</label>
             <select id="mapFilter">
                 <option value="all">Все карты</option>
@@ -82,6 +84,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             <label for="timeSort">Сортировка по времени:</label>
             <select id="timeSort">
+                <option value="none">Не сортировать</option>
                 <option value="desc">По убыванию</option>
                 <option value="asc">По возрастанию</option>
             </select>
@@ -144,6 +147,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function getEmoji(text, size = 20) {
         return `<img class="emoji" draggable="false" src="assets/twemoji/${text}.svg" style="width: ${size}px; height: ${size}px;">`;
+    }
+
+    function timeToSeconds(time) {
+      const [hours, minutes, seconds] = time.split(':').map(Number);
+      return (hours * 3600) + (minutes * 60) + seconds;
     }
 
     function updateSections() {
