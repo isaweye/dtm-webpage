@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const gamesContainer = document.querySelector('main');
-    const g = document.querySelector('games');
+    const g = document.getElementById('games');
     const sortSection = document.getElementById('sortSection');
 
     try {
