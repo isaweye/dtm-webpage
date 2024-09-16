@@ -122,6 +122,93 @@ header img:hover {
     transform: scale(1.1);
 }
 
+label {
+  font-size: 1rem;
+  color: #333;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+label:hover {
+  color: #007bff;
+  transform: translateX(5px);
+}
+
+select {
+  font-size: 1rem;
+  padding: 8px;
+  border: 2px solid #007bff;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  color: #333;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+select:hover {
+  border-color: #0056b3;
+  background-color: #e9f5ff;
+}
+
+select:focus {
+  outline: none;
+  border-color: #0056b3;
+  background-color: #e9f5ff;
+}
+
+fieldset {
+  border: 2px solid #007bff;
+  border-radius: 6px;
+  padding: 10px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+fieldset:hover {
+  border-color: #0056b3;
+  box-shadow: 0 0 10px rgba(0, 91, 187, 0.5);
+}
+
+legend {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #007bff;
+  transition: color 0.3s ease;
+}
+
+legend:hover {
+  color: #0056b3;
+}
+
+option {
+  padding: 8px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+option:hover {
+  background-color: #e9f5ff;
+}
+
+button {
+  font-size: 1rem;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: 2px solid #007bff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+  transform: translateY(-3px);
+}
+
+button:active {
+  transform: translateY(0);
+  background-color: #003d80;
+}
+
 .close {
     transition: transform 0.1s ease;
     position: absolute;

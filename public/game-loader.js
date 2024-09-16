@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const gamesContainer = document.querySelector('main');
+    const g = document.querySelector('games');
     const sortSection = document.getElementById('sortSection');
 
     try {
@@ -29,7 +30,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             <p>Загрузка заняла ${loadTime} мс. Все объекты загружены.</p>
         `;
 
-        renderGames(games);
+        let startGames = games;
+        startGames.sort((a, b) => b.date - a.date);
+        renderGames(startGames);
 
         document.getElementById('sortButton').addEventListener('click', () => {
             const selectedMap = document.getElementById('mapFilter').value;
@@ -55,7 +58,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 filteredGames.sort((a, b) => b.date - a.date);
             }
 
-            gamesContainer.innerHTML = '';
+            g.innerHTML = '';
             renderGames(filteredGames);
         });
     } catch (error) {
@@ -88,6 +91,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     function renderGames(games) {
+        const startTime = performance.now();
         games.forEach(game => {
             const section = document.createElement('div');
             section.id = `section${game.id}`;
@@ -125,9 +129,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <img src="assets/maps/${game.mapId}.png" class="map-picture">
                 <a href="game?gameId=${game.id}" class="game-date">${formattedDate}</a>
             `;
-
-            gamesContainer.appendChild(section);
+            g.appendChild(section);
         });
+        const endTime = performance.now();
+        const loadTime = (endTime - startTime).toFixed(2);
+
+        const s = document.getElementById('section1');
+        s.innerHTML = `
+            <h2>Последние игры (${games.length})</h2>
+            <p>Загрузка заняла ${loadTime} мс. Все объекты загружены.</p>
+        `;
         updateSections();
     }
 
