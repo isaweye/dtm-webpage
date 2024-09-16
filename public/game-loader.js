@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const gamesContainer = document.querySelector('main');
+    const sortSection = document.getElementById('sortSection');
 
     try {
         const apiGet = '/api/fetchData';
@@ -8,13 +9,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         const response = await fetch(apiGet);
         const data = await response.json();
 
-        const games = Object.keys(data).map(gameId => {
+        let games = Object.keys(data).map(gameId => {
             return {
                 id: gameId,
                 ...data[gameId],
                 date: new Date(parseInt(gameId) * 1000)
             };
         });
+
+        const maps = [...new Set(games.map(game => game.map))];
+        createSortOptions(maps);
 
         const endTime = performance.now();
         const loadTime = (endTime - startTime).toFixed(2);
@@ -25,8 +29,65 @@ document.addEventListener('DOMContentLoaded', async () => {
             <p>Загрузка заняла ${loadTime} мс. Все объекты загружены.</p>
         `;
 
-        games.sort((a, b) => b.date - a.date);
+        renderGames(games);
 
+        document.getElementById('sortButton').addEventListener('click', () => {
+            const selectedMap = document.getElementById('mapFilter').value;
+            const winFilter = document.querySelector('input[name="winFilter"]:checked').value;
+            const timeSort = document.getElementById('timeSort').value;
+
+            let filteredGames = games;
+
+            if (selectedMap !== 'all') {
+                filteredGames = filteredGames.filter(game => game.map === selectedMap);
+            }
+
+            if (winFilter !== 'all') {
+                filteredGames = filteredGames.filter(game => {
+                    if (winFilter === 'red') return game.winEmoji === 'red';
+                    if (winFilter === 'blue') return game.winEmoji === 'blue';
+                });
+            }
+
+            if (timeSort === 'asc') {
+                filteredGames.sort((a, b) => a.date - b.date);
+            } else if (timeSort === 'desc') {
+                filteredGames.sort((a, b) => b.date - a.date);
+            }
+
+            gamesContainer.innerHTML = '';
+            renderGames(filteredGames);
+        });
+    } catch (error) {
+        console.error('Ошибка при загрузке данных об играх:', error);
+    }
+
+    function createSortOptions(maps) {
+        sortSection.innerHTML = `
+            <label for="mapFilter">Выберите карту:</label>
+            <select id="mapFilter">
+                <option value="all">Все карты</option>
+                ${maps.map(map => `<option value="${map}">${map}</option>`).join('')}
+            </select>
+
+            <fieldset>
+                <legend>Фильтр по победе:</legend>
+                <label><input type="radio" name="winFilter" value="all" checked> Все</label>
+                <label><input type="radio" name="winFilter" value="red"> Победа красных</label>
+                <label><input type="radio" name="winFilter" value="blue"> Победа синих</label>
+            </fieldset>
+
+            <label for="timeSort">Сортировка по времени:</label>
+            <select id="timeSort">
+                <option value="desc">По убыванию</option>
+                <option value="asc">По возрастанию</option>
+            </select>
+
+            <button id="sortButton">Применить сортировку</button>
+        `;
+    }
+
+    function renderGames(games) {
         games.forEach(game => {
             const section = document.createElement('div');
             section.id = `section${game.id}`;
@@ -65,38 +126,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <a href="game?gameId=${game.id}" class="game-date">${formattedDate}</a>
             `;
 
-
             gamesContainer.appendChild(section);
         });
-        updateSections();
-    } catch (error) {
-        console.error('Ошибка при загрузке данных об играх:', error);
     }
 
     function getEmoji(text, size = 20) {
         return `<img class="emoji" draggable="false" src="assets/twemoji/${text}.svg" style="width: ${size}px; height: ${size}px;">`;
-    }
-
-    function updateSections() {
-        const sections = document.querySelectorAll('.section');
-
-        function checkVisibility() {
-            const windowHeight = window.innerHeight;
-            const scrollY = window.scrollY;
-
-            sections.forEach(section => {
-                const sectionTop = section.getBoundingClientRect().top + scrollY;
-                const sectionHeight = section.offsetHeight;
-
-                if (scrollY + windowHeight > sectionTop + sectionHeight / 4) {
-                    section.classList.add('visible');
-                } else {
-                    section.classList.remove('visible');
-                }
-            });
-        }
-
-        window.addEventListener('scroll', checkVisibility);
-        checkVisibility();
     }
 });
