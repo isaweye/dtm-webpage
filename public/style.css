@@ -122,6 +122,87 @@ header img:hover {
     transform: scale(1.1);
 }
 
+label {
+  font-size: 1rem;
+  color: #dcdcdc; 
+  font-family: 'Minecraft', sans-serif; 
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+label:hover {
+  color: #fff;
+  transform: translateX(5px);
+}
+
+select {
+  font-family: 'Minecraft', sans-serif;  
+  font-size: 0.9rem;
+  padding: 8px;
+  border: 2px solid #dcdcdc; 
+  border-radius: 4px;
+  background-color: #2c2c2c; 
+  color: #dcdcdc;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+select:hover {
+  border-color: #fff; 
+  background-color: #3c3c3c;
+}
+
+fieldset {
+  border: 2px solid #dcdcdc;
+  border-radius: 6px;
+  padding: 10px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+fieldset:hover {
+  border-color: #fff;
+  box-shadow: 0 0 10px rgba(220, 220, 220, 0.5);
+}
+
+legend {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #dcdcdc;
+  font-family: 'Minecraft', sans-serif; 
+  transition: color 0.3s ease;
+}
+
+legend:hover {
+  color: #fff;
+}
+
+option {
+  padding: 8px;
+  font-size: 1rem;
+  background-color: #2c2c2c;
+  color: #dcdcdc;
+  transition: background-color 0.3s ease;
+}
+
+option:hover {
+  background-color: #3c3c3c;
+}
+
+button {
+  font-family: 'Minecraft', sans-serif;
+  font-size: 0.7rem; 
+  padding: 10px 20px;
+  background-color: #3c3c3c;
+  color: #dcdcdc;
+  border: 2px solid #dcdcdc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  background-color: #4c4c4c; 
+  border-color: #fff; 
+}
+
 .close {
     transition: transform 0.1s ease;
     position: absolute;
