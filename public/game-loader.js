@@ -193,8 +193,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (code === 'x') {
                     let hexColor = "#";
                     for (let j = 0; j < 6; j++) {
-                        hexColor += text[++i];
                         i++;
+                        hexColor += text[i];
                     }
                     currentStyles.push(`color:${hexColor};`);
                 } else if (colorCodes[code]) {
