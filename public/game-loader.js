@@ -155,60 +155,35 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     function minecraftToHTML(text) {
-        const colorCodes = {
-            '0': '000000',
-            '1': '0000AA',
-            '2': '00AA00',
-            '3': '00AAAA',
-            '4': 'AA0000',
-            '5': 'AA00AA',
-            '6': 'FFAA00',
-            '7': 'AAAAAA',
-            '8': '555555',
-            '9': '5555FF',
-            'a': '55FF55',
-            'b': '55FFFF',
-            'c': 'FF5555',
-            'd': 'FF55FF',
-            'e': 'FFFF55',
-            'f': 'FFFFFF',
-        };
+        let htmlText = text
+            .replace(/§x([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])/g, '#$1$2$3$4$5$6')
+            .replace(/§[0-9a-fA-F]/g, match => {
+                const colorCodes = {
+                    '0': '000000',
+                    '1': '0000AA',
+                    '2': '00AA00',
+                    '3': '00AAAA',
+                    '4': 'AA0000',
+                    '5': 'AA00AA',
+                    '6': 'FFAA00',
+                    '7': 'AAAAAA',
+                    '8': '555555',
+                    '9': '5555FF',
+                    'a': '55FF55',
+                    'b': '55FFFF',
+                    'c': 'FF5555',
+                    'd': 'FF55FF',
+                    'e': 'FFFF55',
+                    'f': 'FFFFFF',
+                };
+                return `#${colorCodes[match[1]]}`;
+            });
 
-        const formats = {
-            'l': 'font-weight:bold;',
-            'n': 'text-decoration:underline;',
-            'o': 'font-style:italic;',
-            'k': 'animation: obfuscate 1s infinite;',
-            'm': 'text-decoration:line-through;',
-            'r': 'reset',
-        };
+        htmlText = htmlText.replace(/§/g, '');
 
         let result = "";
-        let currentStyles = [];
-
-        for (let i = 0; i < text.length; i++) {
-            if (text[i] === '§') {
-                let code = text[++i];
-
-                if (code === 'x') {
-                    let hexColor = "#";
-                    for (let j = 0; j < 6; j++) {
-                        i++;
-                        hexColor += text[i];
-                    }
-                    currentStyles.push(`color:${hexColor};`);
-                } else if (colorCodes[code]) {
-                    currentStyles.push(`color:#${colorCodes[code]};`);
-                } else if (formats[code]) {
-                    if (formats[code] === 'reset') {
-                        currentStyles = [];
-                    } else {
-                        currentStyles.push(formats[code]);
-                    }
-                }
-            } else {
-                result += `<span style="${currentStyles.join('')}">${text[i]}</span>`;
-            }
+        for (let i = 0; i < htmlText.length; i++) {
+            result += `<span style="color:${htmlText[i]}">${htmlText[i]}</span>`;
         }
 
         return result;
