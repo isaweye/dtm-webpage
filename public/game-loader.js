@@ -1,25 +1,7 @@
 document.addEventListener('DOMContentLoaded', async () => {
+    const gamesContainer = document.querySelector('main');
     const g = document.getElementById('games');
     const sortSection = document.getElementById('sortSection');
-
-    const colorCodes = {
-        '0': '000000',
-        '1': '0000AA',
-        '2': '00AA00',
-        '3': '00AAAA',
-        '4': 'AA0000',
-        '5': 'AA00AA',
-        '6': 'FFAA00',
-        '7': 'AAAAAA',
-        '8': '555555',
-        '9': '5555FF',
-        'a': '55FF55',
-        'b': '55FFFF',
-        'c': 'FF5555',
-        'd': 'FF55FF',
-        'e': 'FFFF55',
-        'f': 'FFFFFF',
-    };
 
     try {
         const apiGet = '/api/fetchData';
@@ -58,7 +40,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             const timeSort = document.getElementById('timeSort').value;
 
             let filteredGames = games;
-            filteredGames.sort((a, b) => b.date - a.date);
 
             if (selectedMap !== 'all') {
                 filteredGames = filteredGames.filter(game => game.map === selectedMap);
@@ -72,9 +53,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             if (timeSort === 'asc') {
-                filteredGames.sort((a, b) => timeToSeconds(a.time) - timeToSeconds(b.time));
+                filteredGames.sort((a, b) => a.date - b.date);
             } else if (timeSort === 'desc') {
-                filteredGames.sort((a, b) => timeToSeconds(b.time) - timeToSeconds(a.time));
+                filteredGames.sort((a, b) => b.date - a.date);
             }
 
             g.innerHTML = '';
@@ -86,7 +67,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function createSortOptions(maps) {
         sortSection.innerHTML = `
-            <h2>Сортировка</h2>
             <label for="mapFilter">Выберите карту:</label>
             <select id="mapFilter">
                 <option value="all">Все карты</option>
@@ -102,7 +82,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             <label for="timeSort">Сортировка по времени:</label>
             <select id="timeSort">
-                <option value="none">Не сортировать</option>
                 <option value="desc">По убыванию</option>
                 <option value="asc">По возрастанию</option>
             </select>
@@ -133,7 +112,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <div class="player">
                         <img src="${winner.skinUrl}" alt="${winner.name}" class="player-avatar"/>
                         <span class="player-name" style="color: ${winnerColor};">${winner.name}</span>
-                        <span class="player-class">${minecraftToHTML(winner.className)}</span>
+                        <span class="player-class">${winner.classId}</span>
                         <span class="player-stats">${getEmoji("kills", 14)} ${winner.kills} ${getEmoji("deaths", 14)} ${winner.deaths} | ${getKDR(winner.kills, winner.deaths)}</span>
                     </div>
                 `).join('')}</p>
@@ -142,7 +121,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <div class="player">
                         <img src="${loser.skinUrl}" alt="${loser.name}" class="player-avatar"/>
                         <span class="player-name" style="color: ${loserColor};">${loser.name}</span>
-                        <span class="player-class">${minecraftToHTML(loser.className)}</span>
+                        <span class="player-class">${loser.classId}</span>
                         <span class="player-stats">${getEmoji("kills", 14)} ${loser.kills} ${getEmoji("deaths", 14)} ${loser.deaths} | ${getKDR(loser.kills, loser.deaths)}</span>
                     </div>
                 `).join('')}</p>
@@ -165,24 +144,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function getEmoji(text, size = 20) {
         return `<img class="emoji" draggable="false" src="assets/twemoji/${text}.svg" style="width: ${size}px; height: ${size}px;">`;
-    }
-
-    function timeToSeconds(time) {
-      const [hours, minutes, seconds] = time.split(':').map(Number);
-      return (hours * 3600) + (minutes * 60) + seconds;
-    }
-
-    function minecraftToHTML(text) {
-        let hexColor = "#000000";
-
-        text = text.replace(/§x([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])/g, (match, p1, p2, p3, p4, p5, p6) => {
-            hexColor = `#${p1}${p2}${p3}${p4}${p5}${p6}`;
-            return '';
-        }).replace(/§([0-9a-fA-F])/g, (match, p1) => {
-            return `#${colorCodes[p1]}`;
-        }).replace(/§/g, '');
-
-        return `<span style="color:${hexColor};">${text}</span>`;
     }
 
     function updateSections() {
