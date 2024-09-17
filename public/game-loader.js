@@ -154,19 +154,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       return (hours * 3600) + (minutes * 60) + seconds;
     }
 
-    function minecraftToHTML(text) {
-        let hexColor = "#000000";
-
-        text = text.replace(/§x([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])/g, (match, p1, p2, p3, p4, p5, p6) => {
-            hexColor = `#${p1}${p2}${p3}${p4}${p5}${p6}`;
-            return '';
-        }).replace(/§([0-9a-fA-F])/g, (match, p1) => {
-            return `#${colorCodes[p1]}`;
-        }).replace(/§/g, '');
-
-        return `<span style="color:${hexColor};">${text}</span>`;
-    }
-
     const colorCodes = {
         '0': '000000',
         '1': '0000AA',
@@ -185,6 +172,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         'e': 'FFFF55',
         'f': 'FFFFFF',
     };
+
+    function minecraftToHTML(text) {
+        let hexColor = "#000000";
+
+        text = text.replace(/§x([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])/g, (match, p1, p2, p3, p4, p5, p6) => {
+            hexColor = `#${p1}${p2}${p3}${p4}${p5}${p6}`;
+            return '';
+        }).replace(/§([0-9a-fA-F])/g, (match, p1) => {
+            return `#${colorCodes[p1]}`;
+        }).replace(/§/g, '');
+
+        return `<span style="color:${hexColor};">${text}</span>`;
+    }
 
     function updateSections() {
         const sections = document.querySelectorAll('.section');
