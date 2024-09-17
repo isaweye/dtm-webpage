@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <div class="player">
                         <img src="${winner.skinUrl}" alt="${winner.name}" class="player-avatar"/>
                         <span class="player-name" style="color: ${winnerColor};">${winner.name}</span>
-                        <span class="player-class">${winner.classId}</span>
+                        <span class="player-class">${minecraftToHTML(winner.className)}</span>
                         <span class="player-stats">${getEmoji("kills", 14)} ${winner.kills} ${getEmoji("deaths", 14)} ${winner.deaths} | ${getKDR(winner.kills, winner.deaths)}</span>
                     </div>
                 `).join('')}</p>
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <div class="player">
                         <img src="${loser.skinUrl}" alt="${loser.name}" class="player-avatar"/>
                         <span class="player-name" style="color: ${loserColor};">${loser.name}</span>
-                        <span class="player-class">${loser.classId}</span>
+                        <span class="player-class">${minecraftToHTML(loser.className)}</span>
                         <span class="player-stats">${getEmoji("kills", 14)} ${loser.kills} ${getEmoji("deaths", 14)} ${loser.deaths} | ${getKDR(loser.kills, loser.deaths)}</span>
                     </div>
                 `).join('')}</p>
@@ -152,6 +152,66 @@ document.addEventListener('DOMContentLoaded', async () => {
     function timeToSeconds(time) {
       const [hours, minutes, seconds] = time.split(':').map(Number);
       return (hours * 3600) + (minutes * 60) + seconds;
+    }
+
+    function minecraftToHTML(text) {
+        const colorCodes = {
+            '0': '000000',
+            '1': '0000AA',
+            '2': '00AA00',
+            '3': '00AAAA',
+            '4': 'AA0000',
+            '5': 'AA00AA',
+            '6': 'FFAA00',
+            '7': 'AAAAAA',
+            '8': '555555',
+            '9': '5555FF',
+            'a': '55FF55',
+            'b': '55FFFF',
+            'c': 'FF5555', 
+            'd': 'FF55FF',
+            'e': 'FFFF55',
+            'f': 'FFFFFF',
+        };
+
+        const formats = {
+            'l': 'font-weight:bold;',
+            'n': 'text-decoration:underline;',
+            'o': 'font-style:italic;',
+            'k': 'animation: obfuscate 1s infinite;',
+            'm': 'text-decoration:line-through;',
+            'r': 'reset',
+        };
+
+        let result = "";
+        let currentStyles = [];
+
+        for (let i = 0; i < text.length; i++) {
+            if (text[i] === '§') {
+                let code = text[++i];
+
+                if (code === 'x') {
+                    let hexColor = "#";
+                    for (let j = 0; j < 6; j++) {
+                        hexColor += text[++i];
+                    }
+                    currentStyles.push(`color:${hexColor};`);
+                } 
+                else if (colorCodes[code]) {
+                    currentStyles.push(`color:#${colorCodes[code]};`);
+                } else if (formats[code]) {
+                    if (formats[code] === 'reset') {
+                        currentStyles = [];
+                    } else {
+                        currentStyles.push(formats[code]);
+                    }
+                }
+            } else {
+                result += `<span style="${currentStyles.join('')}">${text[i]}</span>`;
+            }
+        }
+
+        return result;
     }
 
     function updateSections() {
