@@ -155,39 +155,36 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     function minecraftToHTML(text) {
-        let htmlText = text
-            .replace(/§x([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])/g, '#$1$2$3$4$5$6')
-            .replace(/§[0-9a-fA-F]/g, match => {
-                const colorCodes = {
-                    '0': '000000',
-                    '1': '0000AA',
-                    '2': '00AA00',
-                    '3': '00AAAA',
-                    '4': 'AA0000',
-                    '5': 'AA00AA',
-                    '6': 'FFAA00',
-                    '7': 'AAAAAA',
-                    '8': '555555',
-                    '9': '5555FF',
-                    'a': '55FF55',
-                    'b': '55FFFF',
-                    'c': 'FF5555',
-                    'd': 'FF55FF',
-                    'e': 'FFFF55',
-                    'f': 'FFFFFF',
-                };
-                return `#${colorCodes[match[1]]}`;
-            });
+        let hexColor = "#000000";
 
-        htmlText = htmlText.replace(/§/g, '');
+        text = text.replace(/§x([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])/g, (match, p1, p2, p3, p4, p5, p6) => {
+            hexColor = `#${p1}${p2}${p3}${p4}${p5}${p6}`;
+            return '';
+        }).replace(/§([0-9a-fA-F])/g, (match, p1) => {
+            return `#${colorCodes[p1]}`;
+        }).replace(/§/g, '');
 
-        let result = "";
-        for (let i = 0; i < htmlText.length; i++) {
-            result += `<span style="color:${htmlText[i]}">${htmlText[i]}</span>`;
-        }
-
-        return result;
+        return `<span style="color:${hexColor};">${text}</span>`;
     }
+
+    const colorCodes = {
+        '0': '000000',
+        '1': '0000AA',
+        '2': '00AA00',
+        '3': '00AAAA',
+        '4': 'AA0000',
+        '5': 'AA00AA',
+        '6': 'FFAA00',
+        '7': 'AAAAAA',
+        '8': '555555',
+        '9': '5555FF',
+        'a': '55FF55',
+        'b': '55FFFF',
+        'c': 'FF5555',
+        'd': 'FF55FF',
+        'e': 'FFFF55',
+        'f': 'FFFFFF',
+    };
 
     function updateSections() {
         const sections = document.querySelectorAll('.section');
