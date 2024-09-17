@@ -1,7 +1,25 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const gamesContainer = document.querySelector('main');
     const g = document.getElementById('games');
     const sortSection = document.getElementById('sortSection');
+
+    const colorCodes = {
+        '0': '000000',
+        '1': '0000AA',
+        '2': '00AA00',
+        '3': '00AAAA',
+        '4': 'AA0000',
+        '5': 'AA00AA',
+        '6': 'FFAA00',
+        '7': 'AAAAAA',
+        '8': '555555',
+        '9': '5555FF',
+        'a': '55FF55',
+        'b': '55FFFF',
+        'c': 'FF5555',
+        'd': 'FF55FF',
+        'e': 'FFFF55',
+        'f': 'FFFFFF',
+    };
 
     try {
         const apiGet = '/api/fetchData';
@@ -153,25 +171,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       const [hours, minutes, seconds] = time.split(':').map(Number);
       return (hours * 3600) + (minutes * 60) + seconds;
     }
-
-    const colorCodes = {
-        '0': '000000',
-        '1': '0000AA',
-        '2': '00AA00',
-        '3': '00AAAA',
-        '4': 'AA0000',
-        '5': 'AA00AA',
-        '6': 'FFAA00',
-        '7': 'AAAAAA',
-        '8': '555555',
-        '9': '5555FF',
-        'a': '55FF55',
-        'b': '55FFFF',
-        'c': 'FF5555',
-        'd': 'FF55FF',
-        'e': 'FFFF55',
-        'f': 'FFFFFF',
-    };
 
     function minecraftToHTML(text) {
         let hexColor = "#000000";
