@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             '9': '5555FF',
             'a': '55FF55',
             'b': '55FFFF',
-            'c': 'FF5555', 
+            'c': 'FF5555',
             'd': 'FF55FF',
             'e': 'FFFF55',
             'f': 'FFFFFF',
@@ -196,8 +196,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         hexColor += text[++i];
                     }
                     currentStyles.push(`color:${hexColor};`);
-                } 
-                else if (colorCodes[code]) {
+                } else if (colorCodes[code]) {
                     currentStyles.push(`color:#${colorCodes[code]};`);
                 } else if (formats[code]) {
                     if (formats[code] === 'reset') {
