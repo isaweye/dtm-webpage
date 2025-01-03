@@ -39,7 +39,7 @@
       "dest": "/public/$1.html"
     },
     {
-      "src": "/enable-pack",
+      "src": "/ask/enable-pack",
       "dest": "/public/assets/enable-resourcepack.png"
     }
   ]
