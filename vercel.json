@@ -37,6 +37,10 @@
     {
       "src": "/(.*)",
       "dest": "/public/$1.html"
+    },
+    {
+      "src": "/enable-pack",
+      "dest": "/public/assets/enable-resourcepack.png"
     }
   ]
 }
