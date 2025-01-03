@@ -12,6 +12,10 @@
   ],
   "routes": [
     {
+      "src": "/ask/enable-pack",
+      "dest": "/public/assets/enable-resourcepack.png"
+    },
+    {
       "handle": "filesystem"
     },
     {
